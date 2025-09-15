@@ -49,7 +49,7 @@ const QRGenerator = () => {
     }
   };
 
-  const downloadQR = (format: string) => {
+  const downloadQR = (format: "png" | "svg" | "jpeg") => {
     if (qrCode.current) {
       qrCode.current.download({
         name: "qr-code",

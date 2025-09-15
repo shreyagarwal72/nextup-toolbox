@@ -9,7 +9,7 @@ const Header = () => {
             <img 
               src={nextupLogo} 
               alt="Nextup Tools Logo" 
-              className="w-16 h-16 rounded-2xl shadow-lg"
+              className="w-16 h-16 rounded-lg shadow-md"
             />
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
@@ -28,8 +28,6 @@ const Header = () => {
         </div>
       </div>
       
-      {/* Decorative gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary-glow/20 pointer-events-none" />
     </header>
   );
 };

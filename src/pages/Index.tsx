@@ -175,17 +175,6 @@ const Index = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="bg-primary/5 border border-primary/20 rounded-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold text-primary mb-4">
-              More Tools Coming Soon!
-            </h3>
-            <p className="text-muted-foreground">
-              We're constantly adding new tools to make your workflow more efficient. 
-              Check back regularly for updates and new features.
-            </p>
-          </div>
-        </div>
       </main>
       
       <Footer />
