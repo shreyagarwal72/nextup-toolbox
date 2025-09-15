@@ -16,11 +16,14 @@ const IntroScreen = () => {
 
   return (
     <div className="intro-screen">
-      <img 
-        src={nextupLogo} 
-        alt="Nextup Tools Logo" 
-        className="intro-logo"
-      />
+      <div className="relative">
+        <img 
+          src={nextupLogo} 
+          alt="Nextup Tools Logo" 
+          className="intro-logo animate-pulse-glow"
+        />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 via-primary-glow/30 to-primary/20 animate-spin-slow opacity-75"></div>
+      </div>
     </div>
   );
 };

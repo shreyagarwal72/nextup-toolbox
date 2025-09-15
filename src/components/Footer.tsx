@@ -14,7 +14,14 @@ const Footer = () => {
         
         <div className="border-t border-border pt-6">
           <p className="text-sm text-muted-foreground">
-            &copy; 2025 <span className="font-medium text-primary">Nextup Studio</span> | All rights reserved.
+            &copy; 2025 <a 
+              href="https://vanshubhai.vercel.app" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-medium text-primary hover:text-primary-glow transition-colors duration-300 cursor-pointer"
+            >
+              Nextup Studio
+            </a> | All rights reserved.
           </p>
         </div>
       </div>

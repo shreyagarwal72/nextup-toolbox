@@ -199,18 +199,30 @@
     background: var(--gradient-hero);
   }
 
-  /* Intro Animation */
-  .intro-screen {
-    @apply fixed inset-0 bg-background/95 backdrop-blur-sm z-50;
-    @apply flex items-center justify-center;
-    animation: fadeOut 1.7s ease forwards;
-    animation-delay: 1.7s;
-  }
+/* Intro screen styles */
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--background));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 2.5s ease forwards;
+}
 
-  .intro-logo {
-    @apply w-32 h-32;
-    animation: zoomIn 1.7s ease;
-  }
+.intro-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-elegant);
+  animation: zoomIn 1.5s ease, float 3s ease-in-out infinite;
+  z-index: 2;
+  relative;
+}
 
   @keyframes zoomIn {
     from { 
