@@ -1,12 +1,194 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useNavigate } from "react-router-dom";
+import { 
+  Calculator, 
+  Type, 
+  Palette, 
+  Smile, 
+  Search, 
+  Instagram, 
+  FileText, 
+  Hash, 
+  Shield, 
+  QrCode, 
+  User, 
+  RotateCcw, 
+  FileSearch, 
+  Link2, 
+  Download,
+  Youtube
+} from "lucide-react";
+import IntroScreen from "@/components/IntroScreen";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ToolCard from "@/components/ToolCard";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const tools = [
+    {
+      title: "Age & Unit Calculator",
+      description: "Calculate your age or convert units easily with precision and detailed breakdowns.",
+      icon: Calculator,
+      path: "/age-calculator",
+      available: true,
+    },
+    {
+      title: "Case Converter",
+      description: "Convert text to UPPERCASE, lowercase, Title Case, camelCase, and more formats.",
+      icon: Type,
+      path: "/case-converter",
+      available: false,
+    },
+    {
+      title: "Color Picker & Converter",
+      description: "Pick colors and convert between Hex, RGB, HSL, and other color formats.",
+      icon: Palette,
+      path: "/color-picker",
+      available: false,
+    },
+    {
+      title: "Emoji Picker",
+      description: "Find and copy emojis easily with search and category filtering.",
+      icon: Smile,
+      path: "/emoji-picker",
+      available: false,
+    },
+    {
+      title: "Find & Replace",
+      description: "Find words in text and replace them instantly with advanced options.",
+      icon: Search,
+      path: "/find-replace",
+      available: false,
+    },
+    {
+      title: "Instagram Downloader",
+      description: "Download Instagram videos and images quickly and easily.",
+      icon: Instagram,
+      path: "/instagram-downloader",
+      available: false,
+    },
+    {
+      title: "Lorem Ipsum Generator",
+      description: "Generate dummy text for your designs and layouts instantly.",
+      icon: FileText,
+      path: "/lorem-generator",
+      available: false,
+    },
+    {
+      title: "Number to Words",
+      description: "Convert any number into English words for checks and documents.",
+      icon: Hash,
+      path: "/number-to-words",
+      available: false,
+    },
+    {
+      title: "Password Generator",
+      description: "Generate strong, secure passwords with customizable options and strength meter.",
+      icon: Shield,
+      path: "/password-generator",
+      available: true,
+    },
+    {
+      title: "QR Generator",
+      description: "Create QR codes from any text, URL, or data with customizable styling.",
+      icon: QrCode,
+      path: "/qr-generator",
+      available: false,
+    },
+    {
+      title: "Random Username Generator",
+      description: "Generate unique usernames quickly for social media and accounts.",
+      icon: User,
+      path: "/username-generator",
+      available: false,
+    },
+    {
+      title: "Text Reverser",
+      description: "Reverse any text instantly character by character or word by word.",
+      icon: RotateCcw,
+      path: "/text-reverser",
+      available: false,
+    },
+    {
+      title: "Text Summarizer",
+      description: "Summarize long text into short key points using AI technology.",
+      icon: FileSearch,
+      path: "/text-summarizer",
+      available: false,
+    },
+    {
+      title: "URL Encoder/Decoder",
+      description: "Encode or decode any URL instantly for web development needs.",
+      icon: Link2,
+      path: "/url-encoder",
+      available: false,
+    },
+    {
+      title: "Word Counter",
+      description: "Count words, characters, paragraphs, and get reading time estimates.",
+      icon: FileText,
+      path: "/word-counter",
+      available: true,
+    },
+    {
+      title: "YouTube Downloader",
+      description: "Download YouTube videos in MP4 or extract audio in MP3 format.",
+      icon: Youtube,
+      path: "/youtube-downloader",
+      available: false,
+    },
+  ];
+
+  const handleToolClick = (path: string, available: boolean) => {
+    if (available) {
+      navigate(path);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <IntroScreen />
+      
+      <Header />
+      
+      <main className="container mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-foreground mb-4">
+            Choose Your Tool
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Professional web tools designed for efficiency. Select any tool below to get started.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {tools.map((tool) => (
+            <ToolCard
+              key={tool.path}
+              title={tool.title}
+              description={tool.description}
+              icon={tool.icon}
+              onClick={() => handleToolClick(tool.path, tool.available)}
+              comingSoon={!tool.available}
+            />
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <div className="bg-primary/5 border border-primary/20 rounded-xl p-8 max-w-2xl mx-auto">
+            <h3 className="text-xl font-semibold text-primary mb-4">
+              More Tools Coming Soon!
+            </h3>
+            <p className="text-muted-foreground">
+              We're constantly adding new tools to make your workflow more efficient. 
+              Check back regularly for updates and new features.
+            </p>
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 };
