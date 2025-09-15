@@ -122,9 +122,9 @@ const LoremGenerator = () => {
                     id="startWithLorem"
                     checked={startWithLorem}
                     onChange={(e) => setStartWithLorem(e.target.checked)}
-                    className="w-4 h-4"
+                    className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary focus:ring-2"
                   />
-                  <label htmlFor="startWithLorem" className="text-sm">
+                  <label htmlFor="startWithLorem" className="text-sm text-foreground">
                     Start with "Lorem ipsum dolor sit amet"
                   </label>
                 </div>
@@ -135,10 +135,10 @@ const LoremGenerator = () => {
 
                 {generatedText && (
                   <div className="flex gap-2">
-                    <Button onClick={copyToClipboard} variant="outline" className="flex-1">
+                    <Button onClick={copyToClipboard} variant="secondary" className="flex-1">
                       Copy Text
                     </Button>
-                    <Button onClick={downloadText} variant="outline" className="flex-1">
+                    <Button onClick={downloadText} variant="secondary" className="flex-1">
                       Download
                     </Button>
                   </div>
