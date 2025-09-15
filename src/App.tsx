@@ -12,7 +12,9 @@ import CaseConverter from "./pages/tools/CaseConverter";
 import ColorPicker from "./pages/tools/ColorPicker";
 import EmojiPicker from "./pages/tools/EmojiPicker";
 import FindReplace from "./pages/tools/FindReplace";
-import InstagramDownloader from "./pages/tools/InstagramDownloader";
+import TextSummarizer from "./pages/tools/TextSummarizer";
+import URLEncoder from "./pages/tools/URLEncoder";
+import TextReverser from "./pages/tools/TextReverser";
 import LoremGenerator from "./pages/tools/LoremGenerator";
 import NumberToWords from "./pages/tools/NumberToWords";
 import QRGenerator from "./pages/tools/QRGenerator";
@@ -35,11 +37,14 @@ const App = () => (
         <Route path="/color-picker" element={<ColorPicker />} />
         <Route path="/emoji-picker" element={<EmojiPicker />} />
         <Route path="/find-replace" element={<FindReplace />} />
-        <Route path="/instagram-downloader" element={<InstagramDownloader />} />
+        
         <Route path="/lorem-generator" element={<LoremGenerator />} />
         <Route path="/number-to-words" element={<NumberToWords />} />
         <Route path="/qr-generator" element={<QRGenerator />} />
-        <Route path="/username-generator" element={<UsernameGenerator />} />
+          <Route path="/username-generator" element={<UsernameGenerator />} />
+          <Route path="/text-summarizer" element={<TextSummarizer />} />
+          <Route path="/url-encoder" element={<URLEncoder />} />
+          <Route path="/text-reverser" element={<TextReverser />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

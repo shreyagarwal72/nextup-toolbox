@@ -12,7 +12,10 @@ interface ToolCardProps {
 
 const ToolCard = ({ title, description, icon: Icon, onClick, comingSoon = false }: ToolCardProps) => {
   return (
-    <div className="tool-card group">
+    <div 
+      className={`tool-card cursor-pointer group transition-all duration-500 transform hover:rotate-1 ${comingSoon ? 'opacity-60' : 'hover:scale-105 hover:shadow-2xl hover:-translate-y-2'}`}
+      onClick={onClick}
+    >
       <div className="flex items-start gap-4 mb-4">
         <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
           <Icon size={24} />

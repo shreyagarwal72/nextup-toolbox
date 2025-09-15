@@ -65,8 +65,9 @@ const Index = () => {
       title: "Instagram Downloader",
       description: "Download Instagram videos and images quickly and easily.",
       icon: Instagram,
-      path: "/instagram-downloader",
+      path: "https://instagram-video-downloader-gray.vercel.app/",
       available: true,
+      external: true,
     },
     {
       title: "Lorem Ipsum Generator",
@@ -131,18 +132,15 @@ const Index = () => {
       path: "/word-counter",
       available: true,
     },
-    {
-      title: "YouTube Downloader",
-      description: "Download YouTube videos in MP4 or extract audio in MP3 format.",
-      icon: Youtube,
-      path: "/youtube-downloader",
-      available: true,
-    },
   ];
 
-  const handleToolClick = (path: string, available: boolean) => {
+  const handleToolClick = (path: string, available: boolean, external?: boolean) => {
     if (available) {
-      navigate(path);
+      if (external) {
+        window.open(path, '_blank');
+      } else {
+        navigate(path);
+      }
     }
   };
 
@@ -150,10 +148,10 @@ const Index = () => {
     <div className="min-h-screen">
       <IntroScreen />
       
-      <Header />
+      
       
       <main className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-slide-up">
           <h2 className="text-3xl font-bold text-foreground mb-4">
             Choose Your Tool
           </h2>
@@ -163,15 +161,20 @@ const Index = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {tools.map((tool) => (
-            <ToolCard
+          {tools.map((tool, index) => (
+            <div
               key={tool.path}
-              title={tool.title}
-              description={tool.description}
-              icon={tool.icon}
-              onClick={() => handleToolClick(tool.path, tool.available)}
-              comingSoon={!tool.available}
-            />
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <ToolCard
+                title={tool.title}
+                description={tool.description}
+                icon={tool.icon}
+                onClick={() => handleToolClick(tool.path, tool.available, tool.external)}
+                comingSoon={!tool.available}
+              />
+            </div>
           ))}
         </div>
 
