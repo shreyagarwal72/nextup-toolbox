@@ -11,6 +11,10 @@
     <meta name="theme-color" content="#6366f1" />
     <link rel="canonical" href="https://nextuptools.vercel.app" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Nextup Tools" />
 
     <meta property="og:title" content="Nextup Tools | All Webtools in One Place - Free Online Tools" />
     <meta property="og:description" content="Professional web tools for developers, designers, and creators. 16+ free online tools including calculators, converters, text tools, password generator, QR generator, emoji picker and more." />
@@ -51,5 +55,18 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

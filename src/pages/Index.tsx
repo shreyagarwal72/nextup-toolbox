@@ -21,6 +21,7 @@ import IntroScreen from "@/components/IntroScreen";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolCard from "@/components/ToolCard";
+import InstallPWA from "@/components/InstallPWA";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -181,6 +182,7 @@ const Index = () => {
       </main>
       
       <Footer />
+      <InstallPWA />
     </div>
   );
 };
