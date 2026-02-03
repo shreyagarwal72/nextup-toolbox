@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
 import { LucideIcon } from "lucide-react";
 
 interface ToolCardProps {
@@ -13,37 +11,42 @@ interface ToolCardProps {
 const ToolCard = ({ title, description, icon: Icon, onClick, comingSoon = false }: ToolCardProps) => {
   return (
     <div 
-      className={`tool-card cursor-pointer group transition-all duration-500 transform hover:rotate-1 ${comingSoon ? 'opacity-60' : 'hover:scale-105 hover:shadow-2xl hover:-translate-y-2'}`}
-      onClick={onClick}
+      className={`tool-card group ${comingSoon ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+      onClick={!comingSoon ? onClick : undefined}
     >
-      <div className="flex items-start gap-4 mb-4">
-        <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-          <Icon size={24} />
-        </div>
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-            {title}
-          </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {description}
-          </p>
-        </div>
-      </div>
+      {/* Decorative gradient orb */}
+      <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       
-      <div className="flex items-center justify-between">
-        <Button 
-          onClick={onClick}
-          disabled={comingSoon}
-          variant={comingSoon ? "secondary" : "default"}
-          className="btn-hero flex-1 mr-2"
-        >
-          {comingSoon ? "Coming Soon" : "Use Tool"}
-        </Button>
-        {comingSoon && (
-          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">
-            Soon
+      <div className="relative z-10">
+        {/* Icon */}
+        <div className="icon-glass w-fit mb-4">
+          <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
+        </div>
+        
+        {/* Content */}
+        <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+          {description}
+        </p>
+        
+        {/* Action */}
+        <div className="flex items-center justify-between">
+          <span className={`text-sm font-medium transition-colors duration-300 ${
+            comingSoon 
+              ? 'text-muted-foreground' 
+              : 'text-primary group-hover:text-primary-dark'
+          }`}>
+            {comingSoon ? "Coming Soon" : "Use Tool →"}
           </span>
-        )}
+          
+          {comingSoon && (
+            <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
+              Soon
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
