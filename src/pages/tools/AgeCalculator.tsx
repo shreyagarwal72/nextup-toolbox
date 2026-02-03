@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Calculator, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Calculator } from "lucide-react";
+import Header from "@/components/Header";
 
 const AgeCalculator = () => {
-  const navigate = useNavigate();
   const [birthDate, setBirthDate] = useState("");
   const [result, setResult] = useState<{
     years: number;
@@ -42,86 +41,77 @@ const AgeCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <Button
-          variant="ghost"
-          onClick={() => navigate("/")}
-          className="mb-6 text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Tools
-        </Button>
-
-        <Card className="tool-card">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
-              <Calculator className="h-8 w-8 text-primary" />
+    <div className="min-h-screen">
+      <Header />
+      <div className="container mx-auto px-4 py-8 pt-24">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="icon-glass w-fit mx-auto mb-4">
+              <Calculator className="w-8 h-8 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold">Age Calculator</CardTitle>
-            <CardDescription>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Age Calculator</h1>
+            <p className="text-muted-foreground">
               Calculate your exact age in years, months, and days
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="birthdate">Birth Date</Label>
-              <Input
-                id="birthdate"
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
-                max={new Date().toISOString().split('T')[0]}
-              />
-            </div>
+            </p>
+          </div>
 
-            <Button 
-              onClick={calculateAge} 
-              className="w-full btn-hero"
-              disabled={!birthDate}
-            >
-              Calculate Age
-            </Button>
+          <Card className="glass-card animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <CardContent className="pt-6 space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="birthdate" className="text-foreground">Birth Date</Label>
+                <Input
+                  id="birthdate"
+                  type="date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  max={new Date().toISOString().split('T')[0]}
+                  className="bg-muted/30"
+                />
+              </div>
 
-            {result && (
-              <Card className="bg-accent/50 border-accent">
-                <CardContent className="pt-6">
-                  <div className="text-center space-y-4">
-                    <h3 className="text-lg font-semibold text-accent-foreground">
-                      Your Age
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                      <div>
-                        <div className="text-2xl font-bold text-primary">
-                          {result.years}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Years</div>
+              <Button 
+                onClick={calculateAge} 
+                className="w-full btn-hero"
+                disabled={!birthDate}
+              >
+                Calculate Age
+              </Button>
+
+              {result && (
+                <div className="p-6 bg-muted/50 rounded-xl space-y-4">
+                  <h3 className="text-lg font-semibold text-center text-foreground">
+                    Your Age
+                  </h3>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div className="glass-card p-4">
+                      <div className="text-3xl font-bold text-primary">
+                        {result.years}
                       </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">
-                          {result.months}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Months</div>
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold text-primary">
-                          {result.days}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Days</div>
-                      </div>
+                      <div className="text-sm text-muted-foreground">Years</div>
                     </div>
-                    <div className="pt-4 border-t border-border">
-                      <div className="text-lg font-medium text-foreground">
-                        Total: {result.totalDays.toLocaleString()} days old
+                    <div className="glass-card p-4">
+                      <div className="text-3xl font-bold text-primary">
+                        {result.months}
                       </div>
+                      <div className="text-sm text-muted-foreground">Months</div>
+                    </div>
+                    <div className="glass-card p-4">
+                      <div className="text-3xl font-bold text-primary">
+                        {result.days}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Days</div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            )}
-          </CardContent>
-        </Card>
+                  <div className="pt-4 border-t border-border/30 text-center">
+                    <div className="text-lg font-medium text-foreground">
+                      Total: <span className="text-primary">{result.totalDays.toLocaleString()}</span> days old
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

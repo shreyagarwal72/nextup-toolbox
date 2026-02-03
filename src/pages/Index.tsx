@@ -14,13 +14,17 @@ import {
   RotateCcw, 
   FileSearch, 
   Link2, 
-  Download,
-  Youtube
+  Fingerprint,
+  Code,
+  Clock,
+  Diff,
+  ListOrdered
 } from "lucide-react";
 import IntroScreen from "@/components/IntroScreen";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ToolCard from "@/components/ToolCard";
+import MoreToolsSection from "@/components/MoreToolsSection";
 import InstallPWA from "@/components/InstallPWA";
 
 const Index = () => {
@@ -63,12 +67,33 @@ const Index = () => {
       available: true,
     },
     {
+      title: "Hash Generator",
+      description: "Generate hash values from text using various hashing algorithms.",
+      icon: Hash,
+      path: "/hash-generator",
+      available: true,
+    },
+    {
       title: "Instagram Downloader",
       description: "Download Instagram videos and images quickly and easily.",
       icon: Instagram,
       path: "https://instagram-video-downloader-gray.vercel.app/",
       available: true,
       external: true,
+    },
+    {
+      title: "JSON Formatter",
+      description: "Format, beautify, and minify your JSON data with syntax validation.",
+      icon: Code,
+      path: "/json-formatter",
+      available: true,
+    },
+    {
+      title: "List Sorter",
+      description: "Sort, shuffle, reverse, and organize lists with various options.",
+      icon: ListOrdered,
+      path: "/list-sorter",
+      available: true,
     },
     {
       title: "Lorem Ipsum Generator",
@@ -106,6 +131,13 @@ const Index = () => {
       available: true,
     },
     {
+      title: "Text Diff Checker",
+      description: "Compare two texts and see the differences highlighted line by line.",
+      icon: Diff,
+      path: "/text-diff",
+      available: true,
+    },
+    {
       title: "Text Reverser",
       description: "Reverse any text instantly character by character or word by word.",
       icon: RotateCcw,
@@ -120,10 +152,24 @@ const Index = () => {
       available: true,
     },
     {
+      title: "Timestamp Converter",
+      description: "Convert between Unix timestamps and human-readable dates instantly.",
+      icon: Clock,
+      path: "/timestamp-converter",
+      available: true,
+    },
+    {
       title: "URL Encoder/Decoder",
       description: "Encode or decode any URL instantly for web development needs.",
       icon: Link2,
       path: "/url-encoder",
+      available: true,
+    },
+    {
+      title: "UUID Generator",
+      description: "Generate unique Universal Unique Identifiers (UUID v4) for your projects.",
+      icon: Fingerprint,
+      path: "/uuid-generator",
       available: true,
     },
     {
@@ -148,25 +194,30 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <IntroScreen />
+      <Header />
       
-      
-      
-      <main className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12 animate-slide-up">
-          <h2 className="text-3xl font-bold text-foreground mb-4">
-            Choose Your Tool
+      <main className="container mx-auto px-4 py-12 pt-28">
+        {/* Hero Section */}
+        <div className="text-center mb-16 animate-slide-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-6">
+            <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            All Webtools in One Place
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Choose Your <span className="gradient-text">Tool</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Professional web tools designed for efficiency. Select any tool below to get started.
           </p>
         </div>
 
+        {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {tools.map((tool, index) => (
             <div
               key={tool.path}
               className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
               <ToolCard
                 title={tool.title}
@@ -178,9 +229,9 @@ const Index = () => {
             </div>
           ))}
         </div>
-
       </main>
       
+      <MoreToolsSection />
       <Footer />
       <InstallPWA />
     </div>

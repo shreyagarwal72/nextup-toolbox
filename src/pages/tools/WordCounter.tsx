@@ -1,13 +1,12 @@
 import { useState, useMemo } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowLeft, Copy } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { FileText, Copy, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import Header from "@/components/Header";
 
 const WordCounter = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [text, setText] = useState("");
 
@@ -17,159 +16,81 @@ const WordCounter = () => {
     const charactersNoSpaces = text.replace(/\s/g, "").length;
     const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
     const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
-    const readingTime = Math.max(1, Math.ceil(words / 200)); // Average reading speed: 200 words/minute
+    const readingTime = Math.max(1, Math.ceil(words / 200));
 
-    return {
-      words,
-      characters,
-      charactersNoSpaces,
-      paragraphs,
-      sentences,
-      readingTime,
-    };
+    return { words, characters, charactersNoSpaces, paragraphs, sentences, readingTime };
   }, [text]);
 
   const copyStats = async () => {
-    const statsText = `Text Statistics:
-Words: ${stats.words}
-Characters: ${stats.characters}
-Characters (no spaces): ${stats.charactersNoSpaces}
-Paragraphs: ${stats.paragraphs}
-Sentences: ${stats.sentences}
-Reading time: ${stats.readingTime} minute${stats.readingTime === 1 ? '' : 's'}`;
-
+    const statsText = `Words: ${stats.words} | Characters: ${stats.characters} | Reading time: ${stats.readingTime} min`;
     try {
       await navigator.clipboard.writeText(statsText);
-      toast({
-        title: "Copied!",
-        description: "Statistics copied to clipboard",
-      });
+      toast({ title: "Copied!", description: "Statistics copied to clipboard" });
     } catch (err) {
-      toast({
-        title: "Error",
-        description: "Failed to copy statistics",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: "Failed to copy", variant: "destructive" });
     }
   };
 
-  const clearText = () => {
-    setText("");
-  };
-
   return (
-    <div className="min-h-screen bg-background py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <Button
-          variant="ghost"
-          onClick={() => navigate("/")}
-          className="mb-6 text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Tools
-        </Button>
-
-        <Card className="tool-card">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
-              <FileText className="h-8 w-8 text-primary" />
+    <div className="min-h-screen">
+      <Header />
+      <div className="container mx-auto px-4 py-8 pt-24">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="icon-glass w-fit mx-auto mb-4">
+              <FileText className="w-8 h-8 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-bold">Word Counter</CardTitle>
-            <CardDescription>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Word Counter</h1>
+            <p className="text-muted-foreground">
               Count words, characters, paragraphs, and get reading time estimates
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
+            </p>
+          </div>
+
+          <Card className="glass-card mb-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <CardContent className="pt-6 space-y-4">
               <Textarea
                 placeholder="Paste or type your text here..."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="min-h-[300px] resize-none"
+                className="min-h-[200px] resize-none bg-muted/30"
               />
               <div className="flex gap-2 justify-end">
-                <Button variant="outline" onClick={clearText} disabled={!text}>
-                  Clear Text
+                <Button variant="outline" onClick={() => setText("")} disabled={!text} className="btn-glass">
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Clear
                 </Button>
-                <Button variant="outline" onClick={copyStats} disabled={!text}>
+                <Button variant="outline" onClick={copyStats} disabled={!text} className="btn-glass">
                   <Copy className="mr-2 h-4 w-4" />
                   Copy Stats
                 </Button>
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <Card className="bg-primary/5 border-primary/20">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { label: "Words", value: stats.words, color: "text-primary" },
+              { label: "Characters", value: stats.characters, color: "text-accent" },
+              { label: "No Spaces", value: stats.charactersNoSpaces, color: "text-purple-500" },
+              { label: "Paragraphs", value: stats.paragraphs, color: "text-green-500" },
+              { label: "Sentences", value: stats.sentences, color: "text-yellow-500" },
+              { label: `Min${stats.readingTime === 1 ? '' : 's'} Read`, value: stats.readingTime, color: "text-muted-foreground" },
+            ].map((stat, index) => (
+              <Card 
+                key={stat.label} 
+                className="glass-card animate-fade-in" 
+                style={{ animationDelay: `${0.15 + index * 0.05}s` }}
+              >
                 <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-primary">
-                    {stats.words.toLocaleString()}
+                  <div className={`text-3xl font-bold ${stat.color}`}>
+                    {stat.value.toLocaleString()}
                   </div>
-                  <div className="text-sm text-muted-foreground">Words</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </CardContent>
               </Card>
-
-              <Card className="bg-secondary/50 border-secondary">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-secondary-foreground">
-                    {stats.characters.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Characters</div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-accent/50 border-accent">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-accent-foreground">
-                    {stats.charactersNoSpaces.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-muted-foreground">No Spaces</div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-success/10 border-success/20">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-success">
-                    {stats.paragraphs.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Paragraphs</div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-warning/10 border-warning/20">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-warning">
-                    {stats.sentences.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Sentences</div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-muted border-border">
-                <CardContent className="pt-6 text-center">
-                  <div className="text-2xl font-bold text-muted-foreground">
-                    {stats.readingTime}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Min{stats.readingTime === 1 ? '' : 's'} Read
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {text && (
-              <Card className="bg-card/50 border-border">
-                <CardContent className="pt-6">
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <p>📖 Average reading time is based on 200 words per minute</p>
-                    <p>📝 Word count excludes extra whitespace</p>
-                    <p>📄 Paragraphs are separated by blank lines</p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
